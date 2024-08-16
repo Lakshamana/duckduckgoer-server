@@ -6,11 +6,17 @@ import { SearchController } from './search.controller'
 import { SearchRepository } from './search.repository'
 
 import { Search, SearchSchema } from '@/server/database/schemas'
-import { DuckDuckScrapeAdapter } from '@/server/infra/adapters'
+import { DuckDuckScrapeAdapter, GenerateHashAdapter } from '@/server/infra/adapters'
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Search.name, schema: SearchSchema }])],
-  providers: [SearchService, SearchRepository, DuckDuckScrapeAdapter],
+  providers: [
+    SearchService,
+    SearchModule,
+    SearchRepository,
+    DuckDuckScrapeAdapter,
+    GenerateHashAdapter,
+  ],
   controllers: [SearchController],
 })
 export class SearchModule {}
