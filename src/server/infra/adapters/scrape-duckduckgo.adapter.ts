@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common'
-import { SafeSearchType, search, SearchResult } from 'duck-duck-scrape'
+import { SafeSearchType, search } from 'duck-duck-scrape'
 
-import { ScrapeDuckDuckGoTaskContract } from '@/server/domain/contracts'
+import { ScrapeDuckDuckGoAdapterContract } from '@/server/domain/contracts'
 import { BaseDto, SearchOutput } from '@/server/domain/entities'
 
 @Injectable()
-export class DuckDuckScrapeAdapter implements ScrapeDuckDuckGoTaskContract {
+export class DuckDuckScrapeAdapter implements ScrapeDuckDuckGoAdapterContract {
   async execute(
-    query: ScrapeDuckDuckGoTaskContract.Params,
-  ): Promise<ScrapeDuckDuckGoTaskContract.Result> {
+    query: ScrapeDuckDuckGoAdapterContract.Params,
+  ): Promise<ScrapeDuckDuckGoAdapterContract.Result> {
     const data = await search(query, {
       safeSearch: SafeSearchType.STRICT,
     })
 
-    return BaseDto.factory<SearchResult[], SearchOutput[]>(Array<SearchOutput>, data.results)
+    return BaseDto.factory(SearchOutput, data.results)
   }
 }
