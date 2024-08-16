@@ -8,6 +8,6 @@ export class SearchController {
 
   @Get('search')
   search(@Query() data: ClientQueryDto) {
-    return this.searchService.execute(data.q)
+    return this.searchService.execute(data)
   }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common'
 import { PerformQueryUsecase } from '@/server/domain/usecases'
 import { DuckDuckScrapeAdapter, GenerateHashAdapter } from '@/server/infra/adapters'
 import { SearchRepository } from './search.repository'
+import { paginate } from '../common'
 
 @Injectable()
 export class SearchService implements PerformQueryUsecase {
@@ -12,23 +13,36 @@ export class SearchService implements PerformQueryUsecase {
     private readonly scrapeDuckDuckGoAdapter: DuckDuckScrapeAdapter,
   ) {}
 
-  async execute(query: string): Promise<PerformQueryUsecase.Result> {
-    const hash = this.hasher.execute(query)
+  async execute({
+    q,
+    page = 1,
+    perPage = 10,
+  }: PerformQueryUsecase.Params): Promise<PerformQueryUsecase.Result> {
+    const hash = this.hasher.execute(q)
 
-    const savedSearch = await this.searchRepository.findByHash(hash)
+    const savedSearch = await this.searchRepository.findByHash(hash, page, perPage)
 
-    if (savedSearch) {
-      return savedSearch.results
+    let results = savedSearch?.results
+
+    if (!results) {
+      results = await this.scrapeDuckDuckGoAdapter.execute(q)
+
+      await this.searchRepository.create({
+        title: q,
+        hash,
+        results,
+      })
     }
 
-    const scrapeResults = await this.scrapeDuckDuckGoAdapter.execute(query)
+    const total = results?.length ?? 0
+    const totalPages = Math.ceil(total / perPage)
 
-    await this.searchRepository.create({
-      title: query,
-      hash,
-      results: scrapeResults,
-    })
-
-    return scrapeResults
+    return {
+      total,
+      perPage,
+      totalPages,
+      currentPage: totalPages ? page : 0,
+      data: paginate(results, perPage)[page - 1] ?? [],
+    }
   }
 }

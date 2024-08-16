@@ -12,7 +12,7 @@ export class SearchRepository {
     return this.searchModel.create(search)
   }
 
-  async findByHash(hash: string): Promise<Search> {
+  async findByHash(hash: string, page: number, perPage: number): Promise<Search> {
     return this.searchModel.findOne({ hash }).lean()
   }
 }
