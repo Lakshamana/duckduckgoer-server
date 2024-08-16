@@ -1,5 +1,5 @@
 import { Controller, Get, Query } from '@nestjs/common'
-import { SearchService } from '@/server/searches'
+import { SearchService } from '@/server/searches/search.service'
 import { ClientQueryDto } from '../domain/entities'
 
 @Controller('api')
