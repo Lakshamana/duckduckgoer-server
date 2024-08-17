@@ -1,12 +1,13 @@
 import { Type } from 'class-transformer'
-import { IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator'
+import { IsInt, IsNotEmpty, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator'
 
-export class ClientQueryDto {
+export class SearchInput {
   @IsString()
   @IsNotEmpty()
   q: string
 
   @IsNumber()
+  @IsInt()
   @Type(() => Number)
   @IsNotEmpty()
   @IsOptional()
@@ -14,8 +15,10 @@ export class ClientQueryDto {
   page?: number
 
   @IsNumber()
+  @IsInt()
   @Type(() => Number)
   @IsNotEmpty()
   @IsOptional()
+  @IsPositive()
   perPage?: number
 }

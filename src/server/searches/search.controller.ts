@@ -1,18 +1,18 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { SearchService } from '@/server/searches/search.service'
-import { ClientQueryDto } from '@/server/domain/entities'
+import { SearchInput } from '@/server/domain/entities'
 
 @Controller('api')
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}
 
   @Get('search')
-  search(@Query() data: ClientQueryDto) {
+  search(@Query() data: SearchInput) {
     return this.searchService.search(data)
   }
 
   @Post('search')
-  searchUsingPost(@Body() data: ClientQueryDto) {
+  searchUsingPost(@Body() data: SearchInput) {
     return this.searchService.search(data)
   }
 
