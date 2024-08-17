@@ -13,6 +13,12 @@ export class SearchRepository {
   }
 
   async findByHash(hash: string): Promise<Search> {
-    return this.searchModel.findOne({ hash }).lean()
+    return this.searchModel
+      .findOneAndUpdate({ hash }, { updatedAt: new Date() }, { new: true })
+      .lean()
+  }
+
+  async list(): Promise<Search[]> {
+    return this.searchModel.find({}, {}, { sort: { updatedAt: -1 } }).lean()
   }
 }

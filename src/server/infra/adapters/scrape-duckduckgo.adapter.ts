@@ -13,6 +13,6 @@ export class DuckDuckScrapeAdapter implements ScrapeDuckDuckGoAdapterContract {
       safeSearch: SafeSearchType.STRICT,
     })
 
-    return BaseDto.factory(SearchItem, data.results)
+    return BaseDto.toInstance(SearchItem, data.results)
   }
 }

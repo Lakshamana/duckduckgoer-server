@@ -9,5 +9,9 @@ export class SearchController {
   @Get('search')
   search(@Query() data: ClientQueryDto) {
     return this.searchService.execute(data)
+
+  @Get('search-history')
+  searchHistory() {
+    return this.searchService.loadSearchHistory()
   }
 }

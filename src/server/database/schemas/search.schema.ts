@@ -4,7 +4,10 @@ import { HydratedDocument } from 'mongoose'
 
 export type SearchDocument = HydratedDocument<Search>
 
-@Schema()
+@Schema({
+  autoCreate: true,
+  timestamps: true,
+})
 export class Search {
   @Prop({ required: true })
   title: string

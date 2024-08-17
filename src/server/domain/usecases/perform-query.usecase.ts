@@ -1,7 +1,7 @@
-import { SearchOutput } from '@/server/domain/entities'
+import { SearchItem, SearchOutput } from '@/server/domain/entities'
 
 export interface PerformQueryUsecase {
-  execute(params: PerformQueryUsecase.Params): Promise<PerformQueryUsecase.Result>
+  search(params: PerformQueryUsecase.Params): Promise<PerformQueryUsecase.Result>
 }
 
 export namespace PerformQueryUsecase {
@@ -16,6 +16,7 @@ export namespace PerformQueryUsecase {
     total: number
     totalPages: number
     currentPage: number
-    data: SearchOutput[]
+    data: SearchItem[]
+    updatedSearchHistory: SearchOutput[]
   }
 }
