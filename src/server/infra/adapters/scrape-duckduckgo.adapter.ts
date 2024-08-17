@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common'
 import { SafeSearchType, search } from 'duck-duck-scrape'
 
 import { ScrapeDuckDuckGoAdapterContract } from '@/server/domain/contracts'
-import { BaseDto, SearchOutput } from '@/server/domain/entities'
+import { BaseDto, SearchItem } from '@/server/domain/entities'
 
 @Injectable()
 export class DuckDuckScrapeAdapter implements ScrapeDuckDuckGoAdapterContract {
@@ -13,6 +13,6 @@ export class DuckDuckScrapeAdapter implements ScrapeDuckDuckGoAdapterContract {
       safeSearch: SafeSearchType.STRICT,
     })
 
-    return BaseDto.factory(SearchOutput, data.results)
+    return BaseDto.factory(SearchItem, data.results)
   }
 }

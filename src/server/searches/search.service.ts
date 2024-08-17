@@ -20,7 +20,7 @@ export class SearchService implements PerformQueryUsecase {
   }: PerformQueryUsecase.Params): Promise<PerformQueryUsecase.Result> {
     const hash = this.hasher.execute(q)
 
-    const savedSearch = await this.searchRepository.findByHash(hash, page, perPage)
+    const savedSearch = await this.searchRepository.findByHash(hash)
 
     let results = savedSearch?.results
 

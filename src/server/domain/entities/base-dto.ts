@@ -2,7 +2,7 @@ import { ClassConstructor, Exclude, plainToInstance } from 'class-transformer'
 
 export class BaseDto {
   @Exclude()
-  _id?: string
+  private _id?: string
 
   public static factory<T, U>(ResponseDto: ClassConstructor<U>, plainTResponseData: T[]): U[]
   public static factory<T, U>(ResponseDto: ClassConstructor<U>, plainTResponseData: T): U {

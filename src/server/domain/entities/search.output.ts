@@ -1,14 +1,16 @@
-import { Expose } from 'class-transformer'
-import { IsString } from 'class-validator'
+import { Exclude, Expose, Type } from 'class-transformer'
 
 import { BaseDto } from './base-dto'
+import { SearchItem } from './search-item.output'
 
 export class SearchOutput extends BaseDto {
-  @IsString()
   @Expose()
   title: string
 
-  @IsString()
+  @Exclude()
+  hash: string
+
   @Expose()
-  url: string
+  @Type(() => SearchItem)
+  results: SearchItem[]
 }

@@ -1,4 +1,4 @@
-import { SearchOutput } from '@/server/domain/entities'
+import { SearchItem } from '@/server/domain/entities'
 
 export class ScrapeDuckDuckGoAdapterContract {
   execute: (
@@ -8,5 +8,5 @@ export class ScrapeDuckDuckGoAdapterContract {
 
 export namespace ScrapeDuckDuckGoAdapterContract {
   export type Params = string
-  export type Result = SearchOutput[]
+  export type Result = SearchItem[]
 }

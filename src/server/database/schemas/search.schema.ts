@@ -1,4 +1,4 @@
-import { SearchOutput } from '@/server/domain/entities'
+import { SearchItem } from '@/server/domain/entities'
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { HydratedDocument } from 'mongoose'
 
@@ -12,8 +12,8 @@ export class Search {
   @Prop({ required: true, unique: true })
   hash: string
 
-  @Prop({ type: () => SearchOutput })
-  results: SearchOutput[]
+  @Prop({ type: () => SearchItem, required: true })
+  results: SearchItem[]
 }
 
 export const SearchSchema = SchemaFactory.createForClass(Search)
