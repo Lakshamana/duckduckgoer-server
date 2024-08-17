@@ -1,6 +1,6 @@
-import { Controller, Get, Query } from '@nestjs/common'
+import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { SearchService } from '@/server/searches/search.service'
-import { ClientQueryDto } from '../domain/entities'
+import { ClientQueryDto } from '@/server/domain/entities'
 
 @Controller('api')
 export class SearchController {
@@ -8,7 +8,13 @@ export class SearchController {
 
   @Get('search')
   search(@Query() data: ClientQueryDto) {
-    return this.searchService.execute(data)
+    return this.searchService.search(data)
+  }
+
+  @Post('search')
+  searchUsingPost(@Body() data: ClientQueryDto) {
+    return this.searchService.search(data)
+  }
 
   @Get('search-history')
   searchHistory() {
