@@ -1,7 +1,9 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { SearchService } from '@/server/searches/search.service'
 import { SearchInput } from '@/server/domain/entities'
+import { ApiTags } from '@nestjs/swagger'
 
+@ApiTags('search')
 @Controller('api')
 export class SearchController {
   constructor(private readonly searchService: SearchService) {}

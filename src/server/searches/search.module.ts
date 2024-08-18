@@ -10,13 +10,7 @@ import { DuckDuckScrapeAdapter, GenerateHashAdapter } from '@/server/infra/adapt
 
 @Module({
   imports: [MongooseModule.forFeature([{ name: Search.name, schema: SearchSchema }])],
-  providers: [
-    SearchService,
-    SearchModule,
-    SearchRepository,
-    DuckDuckScrapeAdapter,
-    GenerateHashAdapter,
-  ],
+  providers: [SearchService, SearchRepository, DuckDuckScrapeAdapter, GenerateHashAdapter],
   controllers: [SearchController],
 })
 export class SearchModule {}
