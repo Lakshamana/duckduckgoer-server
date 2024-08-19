@@ -57,6 +57,7 @@ Edit your env variables in the `.env` file. The following variables are availabl
 Example: `DB_URL=http://localhost:27071/searches`
 
 - PORT: Port for the server to run. Defaults to 3333
+
   Example: `PORT=3333`
 
 ## API
