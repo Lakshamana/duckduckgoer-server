@@ -1,8 +1,12 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common'
 import { SearchService } from '@/server/searches/search.service'
-import { PaginatedSearchResultsOutput, SearchInput } from '@/server/domain/entities'
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger'
-import { SearchHistoryOutput } from '../domain/entities/search-history.output'
+import {
+  PaginatedSearchResultsOutput,
+  SearchHistoryOutput,
+  SearchInput,
+} from '@/server/domain/entities'
+import { ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger'
+import { ResultsNotFoundException } from '@/server/domain/errors'
 
 @ApiTags('search')
 @Controller('api')
@@ -15,6 +19,11 @@ export class SearchController {
     type: PaginatedSearchResultsOutput,
     isArray: false,
   })
+  @ApiNotFoundResponse({
+    description: 'Results not found',
+    type: ResultsNotFoundException,
+    isArray: false,
+  })
   search(@Query() data: SearchInput) {
     return this.searchService.search(data)
   }
@@ -22,6 +31,11 @@ export class SearchController {
   @ApiOkResponse({
     description: 'OK',
     type: PaginatedSearchResultsOutput,
+    isArray: false,
+  })
+  @ApiNotFoundResponse({
+    description: 'Results not found',
+    type: ResultsNotFoundException,
     isArray: false,
   })
   @Post('search')
