@@ -5,6 +5,7 @@ import { DuckDuckScrapeAdapter, GenerateHashAdapter } from '@/server/infra/adapt
 import { SearchRepository } from './search.repository'
 import { paginate } from '@/server/common'
 import { BaseDto, SearchOutput } from '@/server/domain/entities'
+import { ResultsNotFoundException } from '@/server/domain/errors'
 
 @Injectable()
 export class SearchService implements PerformQueryUsecase, LoadSearchHistoryUsecase {
@@ -33,11 +34,15 @@ export class SearchService implements PerformQueryUsecase, LoadSearchHistoryUsec
     if (!savedSearch) {
       results = await this.scrapeDuckDuckGoAdapter.execute(q)
 
-      await this.searchRepository.create({
-        title: q,
-        hash,
-        results,
-      })
+      if (results) {
+        await this.searchRepository.create({
+          title: q,
+          hash,
+          results,
+        })
+      } else {
+        throw new ResultsNotFoundException()
+      }
     }
 
     const total = results?.length ?? 0
