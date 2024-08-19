@@ -30,7 +30,7 @@ export class SearchService implements PerformQueryUsecase, LoadSearchHistoryUsec
 
     let results = savedSearch?.results
 
-    if (!results) {
+    if (!savedSearch) {
       results = await this.scrapeDuckDuckGoAdapter.execute(q)
 
       await this.searchRepository.create({
