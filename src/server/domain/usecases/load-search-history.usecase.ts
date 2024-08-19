@@ -1,11 +1,9 @@
-import { SearchOutput } from '@/server/domain/entities'
+import { SearchHistoryOutput } from '@/server/domain/entities'
 
 export interface LoadSearchHistoryUsecase {
   loadSearchHistory(): Promise<LoadSearchHistoryUsecase.Result>
 }
 
 export namespace LoadSearchHistoryUsecase {
-  export type Result = {
-    data: SearchOutput[]
-  }
+  export type Result = SearchHistoryOutput
 }

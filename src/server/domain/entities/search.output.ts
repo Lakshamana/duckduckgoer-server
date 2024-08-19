@@ -27,7 +27,12 @@ export class SearchOutput extends BaseDto {
 
   @ApiResponseProperty({
     type: [SearchItem],
-    example: [SearchItem],
+    example: [
+      {
+        title: 'node',
+        url: 'https://nodejs.org/en/',
+      },
+    ],
   })
   @Type(() => SearchItem)
   results: SearchItem[]
