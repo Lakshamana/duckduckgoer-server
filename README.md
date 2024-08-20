@@ -23,7 +23,7 @@ I have chosen NestJS due to its simplicity and ease of use, as well as its perfo
 Open a terminal and head to the project root. Then run the following commands:
 
 ```bash
-$ docker-compose up -d  # assuming you have Docker and Docker Compose installed (avoid if you already have a working MongoDB instance, since it due to port clashing)
+$ docker-compose up -d  # assuming you have Docker and Docker Compose installed (avoid if you already have a working MongoDB instance, since it may clash to the exposed default port)
 $ cp .env.example .env  # and fill the environment variables
 $ npm install
 ```
